@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css"
         type="text/css" />
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/github-styles.css" type="text/css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/github-information.js"></script>
@@ -69,6 +70,7 @@
                 <h5 class="uppercase text-center">You can also search on other user profiles</h5>
 
                 <div class="center-form">
+                    <!-- This input calls the fetchGitHubInformation function from github-information.js file when being used. -->
                     <input type="text" id="gh-username" value="octocat" oninput="fetchGitHubInformation()" />
                     <div id="gh-user-data"></div>
                     <div id="gh-repo-data"></div>
