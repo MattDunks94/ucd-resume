@@ -8,7 +8,7 @@ function initMap() {
     });
 
     var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+// Positions for our markers. 
     var locations = [{
             lat: 40.785091,
             lng: -73.968285,
@@ -31,6 +31,7 @@ function initMap() {
     });
 
     var markerCluster = new MarkerClusterer(map, markers, {
+        // Image path for the marker clusterer.
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });
 };
