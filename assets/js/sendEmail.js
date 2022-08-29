@@ -17,4 +17,9 @@ function sendMail(contactForm) {
             console.log("ERROR!", error);
         }
     )
+    /** The return statement (below) stops the page from refreshing, 
+     * leaving user input values in input fields and enables the response and error objects
+     * to be logged to the console.
+     
+    /* return false; */
 };
