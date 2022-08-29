@@ -74,10 +74,15 @@ function fetchGitHubInformation(event) {
             $("#gh-repo-data").html(repoInformationHTML(repoData));
         },
         function (errorResponse) {
+            // This checks whether the searched user is available (error code 404). If it isn't, displays message. 
             if (errorResponse.status === 404) {
                 $("#gh-user-data").html(
                     `<h2>No info found for user ${username}</h2>`
                 );
+                // if code 403 is received (unauthorised request from server), displays message along with a time for trying again.
+            } else if(errorResponse.status === 403) {
+                var resetTime = new Date(errorResponse.getResponseHeader("X-RateLimit-Reset") * 1000);
+                $("#gh-user-data").html(`<h4>Too many requests, please wait until ${resetTime.toLocaleTimeString()}</h4>`);
             } else {
                 console.log(errorResponse);
                 $("#gh-user-data").html(
