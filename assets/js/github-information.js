@@ -1,6 +1,7 @@
 /** Function that displays user GitHub username, as a link to their page, 
  * displays users follower and following count and the users avatar, profile pic.
  * This function is called when the user is using the #gh-username input element. 
+ * name, html_url, login and avatar_url are built in to the GitHub API.
 */
 function userInformationHTML(user) {
     return `
@@ -18,6 +19,26 @@ function userInformationHTML(user) {
         Repos: ${user.public_repos}</p>
     </div>`;
 
+};
+
+function repoInformationHTML(repos) {
+    if(repos.length == 0) {
+        return `<div class="clearfix repo-list">No repos!</div>`;
+    } 
+
+    var listItemsHTML = repos.map(function(repo) {
+        return `<li>
+        <a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`;
+    });
+
+    return`<div class="clearfix repo-list">
+        <p>
+            <strong>Repo List:</strong>
+        </p>
+        <ul>
+            ${listItemsHTML.join("\n")}
+        </ul>
+    </div>`
 }
 
 // Fetching GitHub username information.
@@ -36,11 +57,15 @@ function fetchGitHubInformation(event) {
         </div>`);
 
     $.when(
-        $.getJSON(`https://api.github.com/users/${username}`)
+        // GitHub API links to username and users repositories.
+        $.getJSON(`https://api.github.com/users/${username}`),
+        $.getJSON(`https://api.github.com/users/${username}/repos`)
     ).then(
-        function (response) {
-            var userData = response;
-            $("#gh-user-data").html(userInformationHTML(userData))
+        function (firstResponse, secondResponse) {
+            var userData = firstResponse[0];
+            var repoData = secondResponse[0];
+            $("#gh-user-data").html(userInformationHTML(userData));
+            $("#gh-repo-data").html(repoInformationHTML(repoData));
         },
         function (errorResponse) {
             if (errorResponse.status === 404) {
