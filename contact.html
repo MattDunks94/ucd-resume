@@ -13,6 +13,20 @@
         type="text/css" />
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Rosie</title>
+    <!-- EmailJS API link. -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            // My EmailJS Public Key.
+            emailjs.init("zFwdpP6qRTQELZb54");
+            // My EmailJS service ID, template ID and template parameter (object).
+            emailjs.send("gmail", "rosie", {
+                name: "Aaron",
+                notes: "The project that I want is..."
+            });
+        })();
+    </script>
 </head>
 
 <body>
