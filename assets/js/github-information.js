@@ -21,14 +21,17 @@ function userInformationHTML(user) {
 
 };
 
+// Fetches a list of repositories from the searched user.
 function repoInformationHTML(repos) {
+    // Checks whether the users repository list is empty. If so displays message.
     if(repos.length == 0) {
         return `<div class="clearfix repo-list">No repos!</div>`;
     } 
-
+    // Fetches users repositories url in list form using map method, creates link to each repo individually.
     var listItemsHTML = repos.map(function(repo) {
         return `<li>
-        <a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`;
+            <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+        </li>`;
     });
 
     return`<div class="clearfix repo-list">
@@ -43,6 +46,9 @@ function repoInformationHTML(repos) {
 
 // Fetching GitHub username information.
 function fetchGitHubInformation(event) {
+    // Clearing the user-data and repo-data divs html, so users repository list is cleared when username is cleared.
+    $("#gh-user-data").html("");
+    $("#gh-repo-data").html("");
     // Creating variable and assigning it the value of the #gh-username div from github.html.
     var username = $("#gh-username").val();
     // If no username is entered, html for #gh-user-data div displays message.
@@ -79,4 +85,6 @@ function fetchGitHubInformation(event) {
                 );
             }
         });
-}
+};
+// This pre-loads the "octocat" profile, the value of the input in center-form div, in github.html. 
+$(document).ready(fetchGitHubInformation);
